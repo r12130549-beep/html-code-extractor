@@ -1,0 +1,15 @@
+services:
+  - type: worker           # background worker — no HTTP port needed
+    name: html-extractor-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false        # set manually in Render dashboard (secret)
+      - key: ADMIN_IDS
+        value: ""          # optional: comma-separated Telegram user IDs
+    disk:
+      name: bot-data
+      mountPath: /app/database
+      sizeGB: 1

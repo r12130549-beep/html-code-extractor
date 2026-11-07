@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  bot:
+    build: .
+    image: html-extractor-bot
+    container_name: html_extractor_bot
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - ADMIN_IDS=${ADMIN_IDS:-}
+    volumes:
+      - bot_logs:/app/logs
+      - bot_data:/app/database
+      - bot_extract:/app/extract
+    # No ports — background worker, not a web server
+
+volumes:
+  bot_logs:
+  bot_data:
+  bot_extract:
